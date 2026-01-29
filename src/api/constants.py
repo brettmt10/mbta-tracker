@@ -13,6 +13,6 @@ station_ids = [
 ]
 
 destination_ids = {
-    "70067": "Alewife",
-    "70068": "Ashmont/Braintree"
+    "70067": "Ashmont/Braintree",
+    "70068": "Alewife"
 }
