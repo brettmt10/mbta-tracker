@@ -20,7 +20,6 @@ def countdown_logic(station_id, prediction_data: dict):
 
     seconds, mins = get_time_info(arrival_time)
 
-    
     at_station = (
         status == 'Stopped at station' 
         and train_location in c.station_metadata[station_id]['stop_ids']
@@ -29,7 +28,6 @@ def countdown_logic(station_id, prediction_data: dict):
 
     if not at_station and seconds < 0:
         return
-
     if at_station and boarding_timing:
         countdown_message = 'Boarding'
     elif not at_station and seconds <= 30:
@@ -43,4 +41,4 @@ def countdown_logic(station_id, prediction_data: dict):
     else:
         countdown_message = f'{mins} min'
 
-    return countdown_message
+    return countdown_message if countdown_message else None # other cases are an error server side
