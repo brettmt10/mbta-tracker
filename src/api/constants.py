@@ -11,3 +11,8 @@ station_ids = [
     'place-portr',
     'place-davis'
 ]
+
+destination_ids = {
+    "70067": "Alewife",
+    "70068": "Ashmont/Braintree"
+}

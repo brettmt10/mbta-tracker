@@ -1,49 +1,52 @@
 import requests
 from datetime import datetime
 import pytz
+import constants as c
 
-predictions = 'https://api-v3.mbta.com/predictions'
+from fastapi import FastAPI
 
-red_line = {
-    'sort': 'latitude',
-    'filter[latitude]': '42.365486',
-    'filter[longitude]': '-71.103802',
-    'filter[radius]': '0.052',
-    'filter[route]': 'Red'
-}
+app = FastAPI()
 
-params = {
-    'filter[stop]': 'place-harsq',
-    'sort': 'time',
-    'filter[route_type]': 1
-}
+def get_time_info(arrival_time):
+    now = datetime.now(pytz.timezone('US/Eastern'))
+    time_diff = arrival_time - now
+    seconds = time_diff.total_seconds()
+    mins = round(seconds / 60)
 
-headers = {
-    'accept': 'application/vnd.api+json'
-}
+    return seconds, mins
 
-response = requests.get(predictions, params=params, headers=headers)
+@app.get("/times/{station_id}")
+async def get_station_times(station_id: str):
+    predictions = []
+    params = {
+        'filter[stop]': station_id,
+        'sort': 'time',
+        'filter[route_type]': 1
+    }
 
-data = response.json()
+    headers = {
+        'accept': 'application/vnd.api+json'
+    }
 
-for d in data['data']:
-    attrs = d['attributes']
-    arrival_time = attrs['arrival_time']
-    if arrival_time:
-        arrival_time = datetime.fromisoformat(arrival_time)
-        departure_time = datetime.fromisoformat(attrs['departure_time'])
-        direction_id = attrs['direction_id']
-        destination_id = d['relationships']['stop']['data']['id']
-        
-        now = datetime.now(pytz.timezone('US/Eastern'))
-        time_diff = arrival_time - now
-        seconds = time_diff.total_seconds()
-        mins = round(seconds / 60)
+    response = requests.get(c.predictions_api_url, params=params, headers=headers)
+    data = response.json()
+    
+    for d in data['data']:
+        attrs = d['attributes']
+        if attrs['arrival_time']:
+            arrival_time = datetime.fromisoformat(attrs['arrival_time'])
+            departure_time = datetime.fromisoformat(attrs['departure_time'])
+            destination_id = d['relationships']['stop']['data']['id']
+            destination_name = c.destination_ids[destination_id]
+            seconds, mins = get_time_info(arrival_time)
 
-        # if direction_id == 0:
-        #     destination = "Alewife"
-        # else:
-        #     destination = 'South Station'
+            curr = {
+                "arrival_time": arrival_time,
+                "departure_time": departure_time,
+                "destination_name": destination_name,
+                "seconds": seconds,
+                "mins": mins
+            }
+            predictions.append(curr)
 
-        # print(f"Train to {destination} arrives in {mins} mins")
-
+    return {"res": predictions}
