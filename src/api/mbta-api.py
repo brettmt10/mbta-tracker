@@ -2,8 +2,12 @@ import requests
 from datetime import datetime
 import pytz
 import constants as c
+import os
+from dotenv import load_dotenv
 
 from fastapi import FastAPI
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -25,7 +29,8 @@ async def get_station_times(station_id: str):
     }
 
     headers = {
-        'accept': 'application/vnd.api+json'
+        'accept': 'application/vnd.api+json',
+        'x-api-key': os.getenv('API_KEY')
     }
 
     response = requests.get(c.predictions_api_url, params=params, headers=headers)
