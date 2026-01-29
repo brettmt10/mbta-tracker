@@ -15,11 +15,12 @@ station_ids = [
 
 direction_ids = {
     "red": {
-        0: 'Alewife',
-        1: 'Ashmont/Braintree'
+        0: 'Ashmont/Braintree',
+        1: 'Alewife'
     }
 }
 
+# using these statically helps with api rate limits
 station_metadata = {
     'place-harsq': {
         'stop_ids': ['70067', '70068'],

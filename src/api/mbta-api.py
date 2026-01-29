@@ -13,7 +13,7 @@ app = FastAPI()
 
 @app.get("/times/{station_id}")
 async def get_station_times(station_id: str):
-    messages = []
+    times = []
     params = {
         'filter[stop]': station_id,
         'sort': 'time',
@@ -29,8 +29,6 @@ async def get_station_times(station_id: str):
     data = response.json()
     
     for d in data['data']:
-        destination_id = d['relationships']['stop']['data']['id']
-
         attrs = d['attributes']
         if attrs['departure_time']: # only need to get times if train is boardable
             arrival_time = datetime.fromisoformat(attrs['arrival_time'])
@@ -49,7 +47,17 @@ async def get_station_times(station_id: str):
                 "train_location": train_location
             }
 
-            message = countdown_logic(station_id=station_id, prediction_data=prediction_data)
-            messages.append(message)
+            countdown = countdown_logic(station_id=station_id, prediction_data=prediction_data)
+            line = c.station_metadata[station_id]['line']
+            direction_id = attrs['direction_id']
+            train_destination = c.direction_ids[line][direction_id]
+            
+            if countdown:
+                time_info = {
+                    "countdown": countdown,
+                    "train_destination": train_destination
+                }
+                
+                times.append(time_info)
 
-    return {"res": messages}
+    return {"res": times}
