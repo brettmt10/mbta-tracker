@@ -13,8 +13,16 @@ station_ids = [
     'place-davis'
 ]
 
-# using these statically helps with api rate limits
-destination_ids = {
-    "70067": "Ashmont/Braintree",
-    "70068": "Alewife"
+direction_ids = {
+    "red": {
+        0: 'Alewife',
+        1: 'Ashmont/Braintree'
+    }
+}
+
+station_metadata = {
+    'place-harsq': {
+        'stop_ids': ['70067', '70068'],
+        'line': 'red'
+    }
 }
