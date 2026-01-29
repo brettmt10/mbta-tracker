@@ -19,14 +19,16 @@ def countdown_logic(station_id, prediction_data: dict):
     now = datetime.now(pytz.timezone('US/Eastern'))
 
     seconds, mins = get_time_info(arrival_time)
-    if seconds < 0:
-        return
+
     
     at_station = (
         status == 'Stopped at station' 
         and train_location in c.station_metadata[station_id]['stop_ids']
     )
     boarding_timing = seconds <= 90 or (arrival_time < now and departure_time > now)
+
+    if not at_station and seconds < 0:
+        return
 
     if at_station and boarding_timing:
         countdown_message = 'Boarding'
