@@ -26,3 +26,5 @@ def get_station_metadata():
             print(name, id, direction, line)
 
             station_metadata[id] = {"name": name, "direction": direction, "line": line}
+    
+    return station_metadata
