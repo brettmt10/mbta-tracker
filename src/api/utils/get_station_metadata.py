@@ -1,22 +1,28 @@
 import requests
 
-def get_station_metadata(station_ids):
-    params = {
-        'filter[route_type]': 1
+def get_station_metadata():
+    line_lookup = {
+        "Alewife": 'Red',
+        'Ashmont/Braintree': 'Red'
     }
-    
+
+    params = {
+        'filter[route_type]': 1,
+        'fields[stop]': 'name,platform_name'
+    }
+
     response = requests.get('https://api-v3.mbta.com/stops', params=params)
     data = response.json()['data']
 
     station_metadata = {}
-    for station_id in station_ids:
-        station_metadata[station_id] = {
-            'stop_ids': []
-        }
-        
-        for station_data in data:
-            parent_id = station_data['relationships']['parent_station']['data']['id']
-            if parent_id == station_id:
-                station_metadata[station_id]['stop_ids'].append(station_data['id'])
-    
-    return station_metadata
+    for station in data:
+        directions = line_lookup.keys()
+        id = station['id']
+        direction = station['attributes']['platform_name']
+        name = station['attributes']['name']
+
+        if direction in directions:
+            line = line_lookup[direction]
+            print(name, id, direction, line)
+
+            station_metadata[id] = {"name": name, "direction": direction, "line": line}
