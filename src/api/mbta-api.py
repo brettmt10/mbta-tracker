@@ -3,7 +3,7 @@ from datetime import datetime
 import constants as c
 import os
 from dotenv import load_dotenv
-from ops import countdown_logic
+from utils.countdown import countdown_logic
 
 from fastapi import FastAPI
 
@@ -11,11 +11,11 @@ load_dotenv()
 
 app = FastAPI()
 
-@app.get("/times/{station_id}")
-async def get_station_times(station_id: str):
+@app.get("/times/{parent_station_id}")
+async def get_station_times(parent_station_id: str):
     times = []
     params = {
-        'filter[stop]': station_id,
+        'filter[stop]': parent_station_id,
         'sort': 'time',
         'filter[route_type]': 1
     }
@@ -38,26 +38,27 @@ async def get_station_times(station_id: str):
             vehicle_id = d['relationships']['vehicle']['data']['id']
             vehicles_res = requests.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}')
             train_data = vehicles_res.json()
-            train_location = train_data['data']['relationships']['stop']['data']['id']
+            train_current_stop_id = train_data['data']['relationships']['stop']['data']['id']
 
             prediction_data = {
                 "arrival_time": arrival_time,
                 "departure_time": departure_time,
                 "status": status,
-                "train_location": train_location
+                "train_current_stop_id": train_current_stop_id
             }
 
-            countdown = countdown_logic(station_id=station_id, prediction_data=prediction_data)
-            line = c.station_metadata[station_id]['line']
-            direction_id = attrs['direction_id']
-            train_destination = c.direction_ids[line][direction_id]
+            stops = [key for key, value in c.station_metadata.items() if value['parent_station_id'] == parent_station_id]
             
-            if countdown:
-                time_info = {
-                    "countdown": countdown,
-                    "train_destination": train_destination
-                }
-                
-                times.append(time_info)
+            for station_id in stops:
+                countdown = countdown_logic(station_id=station_id, prediction_data=prediction_data)
+                direction = c.station_metadata[station_id]['direction']
+
+                if countdown:
+                    time_info = {
+                        "countdown": countdown,
+                        "train_destination": direction
+                    }
+                    
+                    times.append(time_info)
 
     return {"res": times}
