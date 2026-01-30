@@ -20,11 +20,12 @@ def get_station_metadata():
         id = station['id']
         direction = station['attributes']['platform_name']
         name = station['attributes']['name']
+        parent_station = station['relationships']['parent_station']['data']['id']
 
         if direction in directions:
             line = line_lookup[direction]
             print(name, id, direction, line)
 
-            station_metadata[id] = {"name": name, "direction": direction, "line": line}
+            station_metadata[id] = {"name": name, "direction": direction, "line": line, 'parent_station_id': parent_station}
     
     return station_metadata
