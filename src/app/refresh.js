@@ -13,4 +13,9 @@ async function getData(station_id) {
     }
 }
 
-setInterval(() => getData('place-harsq'), 30000);
+function startAutoRefresh(station_id, interval = 30000) {
+    getData(station_id); // Run immediately
+    setInterval(() => getData(station_id), interval); // Then repeat
+}
+
+startAutoRefresh('place-harsq');
