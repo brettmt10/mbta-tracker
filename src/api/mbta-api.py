@@ -45,7 +45,8 @@ async def get_station_times(parent_station_id: str):
                 status = attrs['status']
 
                 vehicle_id = d['relationships']['vehicle']['data']['id']
-                vehicles_res = await client.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}')
+                vehicles_res = await client.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}', headers=headers)
+
                 train_data = vehicles_res.json()
                 train_current_stop_id = train_data['data']['relationships']['stop']['data']['id']
 

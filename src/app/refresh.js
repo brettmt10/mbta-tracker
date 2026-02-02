@@ -13,4 +13,4 @@ async function getData(station_id) {
     }
 }
 
-setInterval(() => getData('place-harsq'), 5000);
+setInterval(() => getData('place-harsq'), 30000);
