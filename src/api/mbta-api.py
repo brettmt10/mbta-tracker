@@ -1,4 +1,4 @@
-import requests
+import httpx
 from datetime import datetime
 import constants as c
 import os
@@ -25,40 +25,41 @@ async def get_station_times(parent_station_id: str):
         'x-api-key': os.getenv('API_KEY')
     }
 
-    response = requests.get(c.predictions_api_url, params=params, headers=headers)
-    data = response.json()
-    
-    for d in data['data']:
-        attrs = d['attributes']
-        if attrs['departure_time']: # only need to get times if train is boardable
-            arrival_time = datetime.fromisoformat(attrs['arrival_time'])
-            departure_time = datetime.fromisoformat(attrs['departure_time'])
-            status = attrs['status']
+    async with httpx.AsyncClient() as client:
+        response = await client.get(c.predictions_api_url, params=params, headers=headers)
+        data = response.json()
+        
+        for d in data['data']:
+            attrs = d['attributes']
+            if attrs['departure_time']: # only need to get times if train is boardable
+                arrival_time = datetime.fromisoformat(attrs['arrival_time'])
+                departure_time = datetime.fromisoformat(attrs['departure_time'])
+                status = attrs['status']
 
-            vehicle_id = d['relationships']['vehicle']['data']['id']
-            vehicles_res = requests.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}')
-            train_data = vehicles_res.json()
-            train_current_stop_id = train_data['data']['relationships']['stop']['data']['id']
+                vehicle_id = d['relationships']['vehicle']['data']['id']
+                vehicles_res = await client.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}')
+                train_data = vehicles_res.json()
+                train_current_stop_id = train_data['data']['relationships']['stop']['data']['id']
 
-            prediction_data = {
-                "arrival_time": arrival_time,
-                "departure_time": departure_time,
-                "status": status,
-                "train_current_stop_id": train_current_stop_id
-            }
+                prediction_data = {
+                    "arrival_time": arrival_time,
+                    "departure_time": departure_time,
+                    "status": status,
+                    "train_current_stop_id": train_current_stop_id
+                }
 
-            stops = [key for key, value in c.station_metadata.items() if value['parent_station_id'] == parent_station_id]
-            
-            for station_id in stops:
-                countdown = countdown_logic(station_id=station_id, prediction_data=prediction_data)
-                direction = c.station_metadata[station_id]['direction']
+                stops = [key for key, value in c.station_metadata.items() if value['parent_station_id'] == parent_station_id]
+                
+                for station_id in stops:
+                    countdown = countdown_logic(station_id=station_id, prediction_data=prediction_data)
+                    direction = c.station_metadata[station_id]['direction']
 
-                if countdown:
-                    time_info = {
-                        "countdown": countdown,
-                        "train_destination": direction
-                    }
-                    
-                    times.append(time_info)
+                    if countdown:
+                        time_info = {
+                            "countdown": countdown,
+                            "train_destination": direction
+                        }
+                        
+                        times.append(time_info)
 
     return {"res": times}
