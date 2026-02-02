@@ -6,10 +6,18 @@ from dotenv import load_dotenv
 from utils.countdown import countdown_logic
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://127.0.0.1:5500"],  # Your live server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/times/{parent_station_id}")
 async def get_station_times(parent_station_id: str):
