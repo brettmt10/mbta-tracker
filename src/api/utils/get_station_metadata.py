@@ -1,11 +1,10 @@
 import requests
+line_lookup = {
+    "Alewife": 'Red',
+    'Ashmont/Braintree': 'Red'
+}
 
 def get_station_metadata_by_id():
-    line_lookup = {
-        "Alewife": 'Red',
-        'Ashmont/Braintree': 'Red'
-    }
-
     params = {
         'filter[route_type]': 1,
         'fields[stop]': 'name,platform_name'
@@ -31,11 +30,6 @@ def get_station_metadata_by_id():
     return station_metadata
 
 def get_station_metadata_by_parent():
-    line_lookup = {
-        "Alewife": 'Red',
-        'Ashmont/Braintree': 'Red'
-    }
-
     params = {
         'filter[route_type]': 1,
         'fields[stop]': 'name,platform_name,latitude,longitude'
@@ -52,11 +46,7 @@ def get_station_metadata_by_parent():
         coords = {'latitude': station['attributes']['latitude'], 'longitude': station['attributes']['longitude']}
         name = station['attributes']['name']
         parent_station = station['relationships']['parent_station']['data']['id']
-        if direction in directions:
+        if direction in directions and parent_station not in station_metadata.keys():
             line = line_lookup[direction]
             station_metadata[parent_station] = {"name": name, "line": line, "coords": coords}
-            print(parent_station, name, line, coords)
-    
     return station_metadata
-
-get_station_metadata_by_parent()

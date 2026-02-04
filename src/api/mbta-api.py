@@ -4,6 +4,7 @@ import constants as c
 import os
 from dotenv import load_dotenv
 from utils.countdown import countdown_logic
+from utils.get_station_metadata import get_station_metadata_by_parent
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,6 +19,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/stations")
+def get_station_metadata():
+    return get_station_metadata_by_parent()
 
 @app.get("/times/{parent_station_id}")
 async def get_station_times(parent_station_id: str):
