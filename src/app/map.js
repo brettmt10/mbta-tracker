@@ -1,4 +1,6 @@
-import { red_line_stations } from './constants.js';
+import { STATIONS_RED } from './constants/stations.js';
+
+const parentStationsRed = Object.keys(STATIONS_RED);
 
 var corner1 = L.latLng(42.325532, -71.158761),
 corner2 = L.latLng(42.400203, -71.010778),
@@ -15,26 +17,18 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r
     attribution: '© OpenStreetMap, © CartoDB'
 }).addTo(map);
 
+for (let i = 0; i < parentStationsRed.length - 1; i++) {
+    const station = STATIONS_RED[parentStationsRed[i]];
+    const nextStation = STATIONS_RED[parentStationsRed[i + 1]];
+    
+    const stationCoords =  L.latLng(station.coords.latitude, station.coords.longitude);
+    const nextStationCoords =  L.latLng(nextStation.coords.latitude, nextStation.coords.longitude);
 
-for (let i = 0; i < red_line_stations.length - 1; i++) {
-    var station = red_line_stations[i];
-    L.polyline([station.coords, red_line_stations[i + 1].coords], {
+    L.polyline([stationCoords, nextStationCoords], {
         color: '#DA291C',
         weight: 10,
         opacity: 0.8,
         lineJoin: 'round',
         lineCap: 'round'
-    }).addTo(map);
-}
-
-for (let i = 0; i < red_line_stations.length; i++){
-    var station = red_line_stations[i];
-    L.circleMarker(station.coords, {
-        radius: 8,
-        fillColor: '#0e0d0d',
-        color: '#FFFFFF',
-        weight: 3,
-        opacity: 1,
-        fillOpacity: 1
-    }).addTo(map).bindPopup(station.name);
+    }).addTo(map); 
 }
