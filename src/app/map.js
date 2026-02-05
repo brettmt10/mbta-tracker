@@ -33,12 +33,14 @@ for (let i = 0; i < parentStationsRed.length - 1; i++) {
     }).addTo(map); 
 }
 
+export const station_nodes = {}
+
 for (let i = 0; i < parentStationsRed.length; i++) {
     const station = STATIONS_RED[parentStationsRed[i]];
     
     const stationCoords =  L.latLng(station.coords.latitude, station.coords.longitude);
 
-    L.circleMarker(stationCoords, {
+    var marker = L.circleMarker(stationCoords, {
         radius: 8,
         fillColor: '#0e0d0d',
         color: '#FFFFFF',
@@ -46,4 +48,11 @@ for (let i = 0; i < parentStationsRed.length; i++) {
         opacity: 1,
         fillOpacity: 1
     }).addTo(map);
+
+    
+    station_nodes[parentStationsRed[i]] = {
+        "marker": marker,
+        "data": null
+    };
+    
 }
