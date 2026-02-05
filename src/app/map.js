@@ -32,3 +32,18 @@ for (let i = 0; i < parentStationsRed.length - 1; i++) {
         lineCap: 'round'
     }).addTo(map); 
 }
+
+for (let i = 0; i < parentStationsRed.length; i++) {
+    const station = STATIONS_RED[parentStationsRed[i]];
+    
+    const stationCoords =  L.latLng(station.coords.latitude, station.coords.longitude);
+
+    L.circleMarker(stationCoords, {
+        radius: 8,
+        fillColor: '#0e0d0d',
+        color: '#FFFFFF',
+        weight: 3,
+        opacity: 1,
+        fillOpacity: 1
+    }).addTo(map);
+}
