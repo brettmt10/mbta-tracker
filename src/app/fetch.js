@@ -1,3 +1,6 @@
+import { station_nodes } from './map.js'; // or whatever your map file is named
+import { STATIONS_RED } from './constants/stations.js';
+
 async function getData(station_id) {
     const url =`http://localhost:8000/times/${station_id}`;
     try {
@@ -7,15 +10,22 @@ async function getData(station_id) {
         }
 
         const result = await response.json();
-        console.log(result);
+        return result;
+
     } catch (error) {
         console.error(error.message);
+        return null;
     }
 }
 
-function startAutoRefresh(station_id, interval = 30000) {
-    getData(station_id); // Run immediately
-    setInterval(() => getData(station_id), interval); // Then repeat
+async function fetchAllStations() {
+    const parentStationsRed = Object.keys(STATIONS_RED);
+    for (let i = 0; i < parentStationsRed.length; i++) {
+        let station = parentStationsRed[i];
+        let data = await getData(station);
+        station_nodes[station].data = data;
+        console.log(station_nodes[station]);
+    }
 }
 
-startAutoRefresh('place-harsq');
+fetchAllStations();
