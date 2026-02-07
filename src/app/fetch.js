@@ -1,4 +1,4 @@
-import { station_nodes } from './map.js'; // or whatever your map file is named
+import { station_nodes } from './map.js';
 import { STATIONS_RED } from './constants/stations.js';
 
 async function getData(station_id) {
@@ -18,14 +18,15 @@ async function getData(station_id) {
     }
 }
 
-async function fetchAllStations() {
-    const parentStationsRed = Object.keys(STATIONS_RED);
-    for (let i = 0; i < parentStationsRed.length; i++) {
-        let station = parentStationsRed[i];
-        let data = await getData(station);
-        station_nodes[station].data = data;
-        console.log(station_nodes[station]);
+export async function fetchAllStations(line) {
+    if (line == 'red') {
+        const parentStationsRed = Object.keys(STATIONS_RED);
+        for (let i = 0; i < parentStationsRed.length; i++) {
+            let station = parentStationsRed[i];
+            let data = await getData(station);
+            station_nodes[station].data = data;
+        }
     }
-}
 
-fetchAllStations();
+    return station_nodes;
+}
