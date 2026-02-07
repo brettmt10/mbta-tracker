@@ -1,4 +1,5 @@
 import requests
+
 line_lookup = {
     "Alewife": 'Red',
     'Ashmont/Braintree': 'Red'

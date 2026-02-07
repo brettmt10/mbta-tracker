@@ -44,13 +44,15 @@ async def get_station_times(parent_station_id: str):
         
         for d in data['data']:
             attrs = d['attributes']
+            stop_id = d['relationships']['stop']['data']['id']
+
             if attrs['departure_time']: # only need to get times if train is boardable
                 arrival_time = datetime.fromisoformat(attrs['arrival_time'])
                 departure_time = datetime.fromisoformat(attrs['departure_time'])
                 status = attrs['status']
 
                 vehicle_id = d['relationships']['vehicle']['data']['id']
-                
+
                 try:
                     vehicles_res = await client.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}', headers=headers)
 
@@ -68,16 +70,15 @@ async def get_station_times(parent_station_id: str):
 
                 stops = [key for key, value in c.station_metadata.items() if value['parent_station_id'] == parent_station_id]
                 
-                for station_id in stops:
-                    countdown = countdown_logic(station_id=station_id, prediction_data=prediction_data)
-                    direction = c.station_metadata[station_id]['direction']
+                for stop_id_i in stops:
+                    if stop_id_i == stop_id:
+                        countdown = countdown_logic(station_id=stop_id, prediction_data=prediction_data)
+                        direction = c.station_metadata[stop_id]['direction']
 
-                    if countdown:
-                        time_info = {
-                            "countdown": countdown,
-                            "train_destination": direction
-                        }
-                        
-                        times.append(time_info)
-
+                        if countdown:
+                            time_info = {
+                                "countdown": countdown,
+                                "train_destination": direction
+                            }
+                            times.append(time_info)
     return {"res": times}
