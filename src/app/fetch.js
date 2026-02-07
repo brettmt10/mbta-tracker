@@ -24,7 +24,7 @@ export async function fetchAllStations(line) {
         for (let i = 0; i < parentStationsRed.length; i++) {
             let station = parentStationsRed[i];
             let data = await getData(station);
-            station_nodes[station].data = data;
+            station_nodes[station].data = data.res;
         }
     }
 
