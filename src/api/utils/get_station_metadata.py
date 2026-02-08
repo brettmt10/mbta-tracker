@@ -1,14 +1,10 @@
 import requests
+import json
+from rich import print as rprint
 
-line_lookup = {
-    "Alewife": 'Red',
-    'Ashmont/Braintree': 'Red'
-}
-
-def get_station_metadata_by_id():
+def get_station_metadata():
     params = {
-        'filter[route_type]': 1,
-        'fields[stop]': 'name,platform_name'
+        'filter[route_type]': '0,1'
     }
 
     response = requests.get('https://api-v3.mbta.com/stops', params=params)
@@ -16,38 +12,29 @@ def get_station_metadata_by_id():
 
     station_metadata = {}
     for station in data:
-        directions = line_lookup.keys()
-        id = station['id']
-        direction = station['attributes']['platform_name']
-        name = station['attributes']['name']
+        # get stop data
         parent_station = station['relationships']['parent_station']['data']['id']
 
-        if direction in directions:
-            line = line_lookup[direction]
-            print(name, id, direction, line)
-
-            station_metadata[id] = {"name": name, "direction": direction, "line": line, 'parent_station_id': parent_station}
-    
-    return station_metadata
-
-def get_station_metadata_by_parent():
-    params = {
-        'filter[route_type]': 1,
-        'fields[stop]': 'name,platform_name,latitude,longitude'
-    }
-
-    response = requests.get('https://api-v3.mbta.com/stops', params=params)
-    data = response.json()['data']
-
-    station_metadata = {}
-    for station in data:
-        directions = line_lookup.keys()
         id = station['id']
         direction = station['attributes']['platform_name']
-        coords = {'latitude': station['attributes']['latitude'], 'longitude': station['attributes']['longitude']}
-        name = station['attributes']['name']
-        parent_station = station['relationships']['parent_station']['data']['id']
-        if direction in directions and parent_station not in station_metadata.keys():
-            line = line_lookup[direction]
-            station_metadata[parent_station] = {"name": name, "line": line, "coords": coords}
+
+        description = station['attributes']['description']
+        # extract line
+        line = description.split(' - ')[1]
+
+        stop_data = {
+            "line": line,
+            "id": id,
+            "direction": direction
+        }
+
+        # if no parent station, initialize it, then add data
+        if parent_station not in station_metadata.keys():
+            station_metadata[parent_station] = {}
+            coords = [station['attributes']['latitude'], station['attributes']['longitude']]
+            station_metadata[parent_station]['coords'] = coords
+            station_metadata[parent_station]['stops'] = [stop_data]
+        else:
+            station_metadata[parent_station]['stops'].append(stop_data)
+
     return station_metadata
