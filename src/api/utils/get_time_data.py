@@ -6,13 +6,13 @@ from static import station_metadata
 
 async def parse_predicition_data(prediction_data, parent_station, headers):
     times = []
-    attrs = t['attributes']
 
-    for t in prediction_data:
+    for t in prediction_data['data']:
+        attrs = t['attributes']
         if attrs['departure_time']:
             stop_id = t['relationships']['stop']['data']['id']
-            arrival_time = attrs['arrival_time']
-            departure_time = attrs['departure_time']
+            arrival_time = datetime.fromisoformat(attrs['arrival_time'])
+            departure_time = datetime.fromisoformat(attrs['departure_time'])
             status = attrs['status']
             vehicle_id = t['relationships']['vehicle']['data']['id']
             direction = ''
@@ -46,7 +46,7 @@ async def parse_predicition_data(prediction_data, parent_station, headers):
                     "direction": direction
                 }
                 times.append(time_info)
-    return
+    return times
 
 def get_time_info(arrival_time):
     now = datetime.now(pytz.timezone('US/Eastern'))

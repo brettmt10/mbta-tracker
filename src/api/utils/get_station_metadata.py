@@ -21,6 +21,7 @@ def get_station_metadata():
         description = station['attributes']['description']
         # extract line
         line = description.split(' - ')[1]
+        name = description.split(' - ')[0]
 
         stop_data = {
             "line": line,
@@ -31,6 +32,7 @@ def get_station_metadata():
         # if no parent station, initialize it, then add data
         if parent_station not in station_metadata.keys():
             station_metadata[parent_station] = {}
+            station_metadata[parent_station]['name'] = name
             coords = [station['attributes']['latitude'], station['attributes']['longitude']]
             station_metadata[parent_station]['coords'] = coords
             station_metadata[parent_station]['stops'] = [stop_data]

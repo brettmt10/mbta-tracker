@@ -1,11 +1,9 @@
 import httpx
 from datetime import datetime
-import constants as c
 import os
 from dotenv import load_dotenv
-from utils.countdown import countdown_logic
-from utils.get_station_metadata import get_station_metadata_by_parent
-
+from utils.get_time_data import parse_predicition_data
+from utils.get_station_metadata import get_station_metadata
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -14,15 +12,15 @@ load_dotenv()
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500"],  # Your live server
+    allow_origins=["http://127.0.0.1:5500"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 @app.get("/stations")
-def get_station_metadata():
-    return get_station_metadata_by_parent()
+def get_stations():
+    return get_station_metadata()
 
 @app.get("/times/{parent_station_id}")
 async def get_station_times(parent_station_id: str):
@@ -30,7 +28,7 @@ async def get_station_times(parent_station_id: str):
     params = {
         'filter[stop]': parent_station_id,
         'sort': 'time',
-        'filter[route_type]': 1
+        'filter[route_type]': '1'
     }
 
     headers = {
@@ -39,46 +37,8 @@ async def get_station_times(parent_station_id: str):
     }
 
     async with httpx.AsyncClient() as client:
-        response = await client.get(c.predictions_api_url, params=params, headers=headers)
+        response = await client.get('https://api-v3.mbta.com/predictions', params=params, headers=headers)
         data = response.json()
-        
-        for d in data['data']:
-            attrs = d['attributes']
-            stop_id = d['relationships']['stop']['data']['id']
+        times = await parse_predicition_data(prediction_data=data, parent_station=parent_station_id, headers=headers)
 
-            if attrs['departure_time']: # only need to get times if train is boardable
-                arrival_time = datetime.fromisoformat(attrs['arrival_time'])
-                departure_time = datetime.fromisoformat(attrs['departure_time'])
-                status = attrs['status']
-
-                vehicle_id = d['relationships']['vehicle']['data']['id']
-
-                try:
-                    vehicles_res = await client.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}', headers=headers)
-
-                    train_data = vehicles_res.json()
-                    train_current_stop_id = train_data['data']['relationships']['stop']['data']['id']
-                except:
-                    train_current_stop_id = -1
-
-                prediction_data = {
-                    "arrival_time": arrival_time,
-                    "departure_time": departure_time,
-                    "status": status,
-                    "train_current_stop_id": train_current_stop_id
-                }
-
-                stops = [key for key, value in c.station_metadata.items() if value['parent_station_id'] == parent_station_id]
-                
-                for stop_id_i in stops:
-                    if stop_id_i == stop_id:
-                        countdown = countdown_logic(station_id=stop_id, prediction_data=prediction_data)
-                        direction = c.station_metadata[stop_id]['direction']
-
-                        if countdown:
-                            time_info = {
-                                "countdown": countdown,
-                                "train_destination": direction
-                            }
-                            times.append(time_info)
     return {"res": times}
