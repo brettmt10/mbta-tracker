@@ -1,0 +1,91 @@
+from datetime import datetime
+import pytz
+import httpx
+from rich import print as rprint
+from static import station_metadata
+
+async def parse_predicition_data(prediction_data, parent_station, headers):
+    times = []
+    attrs = t['attributes']
+
+    for t in prediction_data:
+        if attrs['departure_time']:
+            stop_id = t['relationships']['stop']['data']['id']
+            arrival_time = attrs['arrival_time']
+            departure_time = attrs['departure_time']
+            status = attrs['status']
+            vehicle_id = t['relationships']['vehicle']['data']['id']
+            direction = ''
+
+            # get correct direction placement
+            for stop in station_metadata[parent_station]['stops']:
+                if stop['id'] == stop_id:
+                    direction = stop['direction']
+
+            async with httpx.AsyncClient() as client:
+                try:
+                    vehicles_res = await client.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}', headers=headers)
+
+                    train_data = vehicles_res.json()
+                    train_current_stop_id = train_data['data']['relationships']['stop']['data']['id']
+                except:
+                    train_current_stop_id = -1
+
+            prediction_data_f = {
+                "arrival_time": arrival_time,
+                "departure_time": departure_time,
+                "status": status,
+                "train_current_stop_id": train_current_stop_id
+            }
+            
+            countdown = countdown_logic(station_id=stop_id, prediction_data=prediction_data_f)
+
+            if countdown:
+                time_info = {
+                    "countdown": countdown,
+                    "direction": direction
+                }
+                times.append(time_info)
+    return
+
+def get_time_info(arrival_time):
+    now = datetime.now(pytz.timezone('US/Eastern'))
+    time_diff = arrival_time - now
+    seconds = time_diff.total_seconds()
+    mins = round(seconds / 60)
+
+    return seconds, mins
+
+def countdown_logic(station_id, prediction_data: dict):
+    # return the countdown message based on MTBA best practices: https://www.mbta.com/developers/real-time-display-guidelines
+    arrival_time = prediction_data['arrival_time']
+    departure_time = prediction_data['departure_time']
+    status = prediction_data['status']
+    train_current_stop_id = prediction_data['train_current_stop_id']
+    now = datetime.now(pytz.timezone('US/Eastern'))
+
+    seconds, mins = get_time_info(arrival_time)
+
+    at_station = (
+        status == 'Stopped at station' 
+        and train_current_stop_id == station_id
+    )
+
+    boarding_timing = seconds <= 90 or (arrival_time < now and departure_time > now)
+
+    if not at_station and seconds < 0:
+        return
+    if at_station and boarding_timing:
+        countdown_message = 'Boarding'
+    elif not at_station and seconds <= 30:
+        countdown_message = 'Arriving'
+    elif not at_station and seconds <= 60:
+        countdown_message = '1 min'
+    elif not at_station and mins > 60:
+        hours = mins // 60
+        remaining_mins = mins % 60
+        countdown_message = f'{hours} hr {remaining_mins} mins'
+    else:
+        countdown_message = f'{mins} min'
+
+    return countdown_message if countdown_message else None # other cases are an error server side
