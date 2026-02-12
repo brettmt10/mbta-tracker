@@ -1,5 +1,6 @@
 export const STATIONS = {
   "place-boyls": {
+    "name": "Boylston",
     "coords": [
       42.353214,
       -71.064545
@@ -18,6 +19,7 @@ export const STATIONS = {
     ]
   },
   "place-qnctr": {
+    "name": "Quincy Center",
     "coords": [
       42.251809,
       -71.005409
@@ -36,6 +38,7 @@ export const STATIONS = {
     ]
   },
   "place-denrd": {
+    "name": "Dean Road",
     "coords": [
       42.337807,
       -71.141753
@@ -54,6 +57,7 @@ export const STATIONS = {
     ]
   },
   "place-coecl": {
+    "name": "Copley",
     "coords": [
       42.350126,
       -71.077376
@@ -72,6 +76,7 @@ export const STATIONS = {
     ]
   },
   "place-jfk": {
+    "name": "JFK/UMass",
     "coords": [
       42.320434,
       -71.052215
@@ -100,6 +105,7 @@ export const STATIONS = {
     ]
   },
   "place-bucen": {
+    "name": "Boston University Central",
     "coords": [
       42.350013,
       -71.106902
@@ -118,6 +124,7 @@ export const STATIONS = {
     ]
   },
   "place-miltt": {
+    "name": "Milton",
     "coords": [
       42.270308,
       -71.067289
@@ -136,6 +143,7 @@ export const STATIONS = {
     ]
   },
   "place-stpul": {
+    "name": "Saint Paul Street",
     "coords": [
       42.343118,
       -71.117498
@@ -154,6 +162,7 @@ export const STATIONS = {
     ]
   },
   "place-symcl": {
+    "name": "Symphony",
     "coords": [
       42.342687,
       -71.085056
@@ -172,6 +181,7 @@ export const STATIONS = {
     ]
   },
   "place-fldcr": {
+    "name": "Fields Corner",
     "coords": [
       42.299935,
       -71.061945
@@ -190,6 +200,7 @@ export const STATIONS = {
     ]
   },
   "place-grigg": {
+    "name": "Griggs Street",
     "coords": [
       42.348919,
       -71.134305
@@ -208,6 +219,7 @@ export const STATIONS = {
     ]
   },
   "place-haecl": {
+    "name": "Haymarket",
     "coords": [
       42.363021,
       -71.05829
@@ -236,6 +248,7 @@ export const STATIONS = {
     ]
   },
   "place-chill": {
+    "name": "Chestnut Hill Avenue",
     "coords": [
       42.33873,
       -71.152526
@@ -254,6 +267,7 @@ export const STATIONS = {
     ]
   },
   "place-bcnfd": {
+    "name": "Beaconsfield",
     "coords": [
       42.335625,
       -71.140112
@@ -272,6 +286,7 @@ export const STATIONS = {
     ]
   },
   "place-dwnxg": {
+    "name": "Downtown Crossing",
     "coords": [
       42.355518,
       -71.060225
@@ -300,6 +315,7 @@ export const STATIONS = {
     ]
   },
   "place-kencl": {
+    "name": "Kenmore",
     "coords": [
       42.348949,
       -71.095169
@@ -328,6 +344,7 @@ export const STATIONS = {
     ]
   },
   "place-gover": {
+    "name": "Government Center",
     "coords": [
       42.359705,
       -71.059215
@@ -356,6 +373,7 @@ export const STATIONS = {
     ]
   },
   "place-bomnl": {
+    "name": "Bowdoin",
     "coords": [
       42.361365,
       -71.062037
@@ -374,6 +392,7 @@ export const STATIONS = {
     ]
   },
   "place-engav": {
+    "name": "Englewood Avenue",
     "coords": [
       42.336964,
       -71.145867
@@ -392,6 +411,7 @@ export const STATIONS = {
     ]
   },
   "place-river": {
+    "name": "Riverside",
     "coords": [
       42.337317,
       -71.252256
@@ -410,6 +430,7 @@ export const STATIONS = {
     ]
   },
   "place-matt": {
+    "name": "Mattapan",
     "coords": [
       42.267559,
       -71.092233
@@ -428,6 +449,7 @@ export const STATIONS = {
     ]
   },
   "place-woodl": {
+    "name": "Woodland",
     "coords": [
       42.332703,
       -71.243055
@@ -446,6 +468,7 @@ export const STATIONS = {
     ]
   },
   "place-sull": {
+    "name": "Sullivan Square",
     "coords": [
       42.383975,
       -71.076994
@@ -464,6 +487,7 @@ export const STATIONS = {
     ]
   },
   "place-nuniv": {
+    "name": "Northeastern University",
     "coords": [
       42.339897,
       -71.09021
@@ -482,6 +506,7 @@ export const STATIONS = {
     ]
   },
   "place-pktrm": {
+    "name": "Park Street",
     "coords": [
       42.356395,
       -71.062424
@@ -525,6 +550,7 @@ export const STATIONS = {
     ]
   },
   "place-shmnl": {
+    "name": "Savin Hill",
     "coords": [
       42.310603,
       -71.053678
@@ -543,6 +569,7 @@ export const STATIONS = {
     ]
   },
   "place-valrd": {
+    "name": "Valley Road",
     "coords": [
       42.268347,
       -71.081343
@@ -561,6 +588,7 @@ export const STATIONS = {
     ]
   },
   "place-mdftf": {
+    "name": "Medford/Tufts",
     "coords": [
       42.408306,
       -71.11728
@@ -579,6 +607,7 @@ export const STATIONS = {
     ]
   },
   "place-waban": {
+    "name": "Waban",
     "coords": [
       42.325695,
       -71.230476
@@ -597,6 +626,7 @@ export const STATIONS = {
     ]
   },
   "place-amory": {
+    "name": "Amory Street",
     "coords": [
       42.350901,
       -71.114318
@@ -615,6 +645,7 @@ export const STATIONS = {
     ]
   },
   "place-wimnl": {
+    "name": "Wood Island",
     "coords": [
       42.379671,
       -71.022783
@@ -633,6 +664,7 @@ export const STATIONS = {
     ]
   },
   "place-rsmnl": {
+    "name": "Reservoir",
     "coords": [
       42.335163,
       -71.148601
@@ -651,6 +683,7 @@ export const STATIONS = {
     ]
   },
   "place-ccmnl": {
+    "name": "Community College",
     "coords": [
       42.373622,
       -71.069533
@@ -669,6 +702,7 @@ export const STATIONS = {
     ]
   },
   "place-chncl": {
+    "name": "Chinatown",
     "coords": [
       42.352547,
       -71.062752
@@ -687,6 +721,7 @@ export const STATIONS = {
     ]
   },
   "place-bland": {
+    "name": "Blandford Street",
     "coords": [
       42.349276,
       -71.100213
@@ -705,6 +740,7 @@ export const STATIONS = {
     ]
   },
   "place-sdmnl": {
+    "name": "Suffolk Downs",
     "coords": [
       42.390422,
       -70.997323
@@ -723,6 +759,7 @@ export const STATIONS = {
     ]
   },
   "place-brntn": {
+    "name": "Braintree",
     "coords": [
       42.207424,
       -71.001645
@@ -736,6 +773,7 @@ export const STATIONS = {
     ]
   },
   "place-sougr": {
+    "name": "South Street",
     "coords": [
       42.339581,
       -71.157499
@@ -754,6 +792,7 @@ export const STATIONS = {
     ]
   },
   "place-hymnl": {
+    "name": "Hynes Convention Center",
     "coords": [
       42.347888,
       -71.087903
@@ -772,6 +811,7 @@ export const STATIONS = {
     ]
   },
   "place-jaksn": {
+    "name": "Jackson Square",
     "coords": [
       42.323132,
       -71.099592
@@ -790,6 +830,7 @@ export const STATIONS = {
     ]
   },
   "place-aqucl": {
+    "name": "Aquarium",
     "coords": [
       42.359784,
       -71.051652
@@ -808,6 +849,7 @@ export const STATIONS = {
     ]
   },
   "place-cntsq": {
+    "name": "Central",
     "coords": [
       42.365379,
       -71.103554
@@ -826,6 +868,7 @@ export const STATIONS = {
     ]
   },
   "place-rbmnl": {
+    "name": "Revere Beach",
     "coords": [
       42.407874,
       -70.992497
@@ -844,6 +887,7 @@ export const STATIONS = {
     ]
   },
   "place-cenav": {
+    "name": "Central Avenue",
     "coords": [
       42.270001,
       -71.073358
@@ -862,6 +906,7 @@ export const STATIONS = {
     ]
   },
   "place-nqncy": {
+    "name": "North Quincy",
     "coords": [
       42.275802,
       -71.030144
@@ -880,6 +925,7 @@ export const STATIONS = {
     ]
   },
   "place-grnst": {
+    "name": "Green Street",
     "coords": [
       42.309832,
       -71.108059
@@ -898,6 +944,7 @@ export const STATIONS = {
     ]
   },
   "place-bmmnl": {
+    "name": "Beachmont",
     "coords": [
       42.397219,
       -70.992647
@@ -916,6 +963,7 @@ export const STATIONS = {
     ]
   },
   "place-asmnl": {
+    "name": "Ashmont",
     "coords": [
       42.283768,
       -71.063191
@@ -939,6 +987,7 @@ export const STATIONS = {
     ]
   },
   "place-rcmnl": {
+    "name": "Roxbury Crossing",
     "coords": [
       42.33064,
       -71.09604
@@ -957,6 +1006,7 @@ export const STATIONS = {
     ]
   },
   "place-bckhl": {
+    "name": "Back of the Hill",
     "coords": [
       42.329399,
       -71.110931
@@ -975,6 +1025,7 @@ export const STATIONS = {
     ]
   },
   "place-lake": {
+    "name": "Boston College",
     "coords": [
       42.34024,
       -71.166849
@@ -993,6 +1044,7 @@ export const STATIONS = {
     ]
   },
   "place-wlsta": {
+    "name": "Wollaston",
     "coords": [
       42.266762,
       -71.020542
@@ -1011,6 +1063,7 @@ export const STATIONS = {
     ]
   },
   "place-babck": {
+    "name": "Babcock Street",
     "coords": [
       42.351695,
       -71.120257
@@ -1029,6 +1082,7 @@ export const STATIONS = {
     ]
   },
   "place-north": {
+    "name": "North Station",
     "coords": [
       42.36528,
       -71.060205
@@ -1057,6 +1111,7 @@ export const STATIONS = {
     ]
   },
   "place-mvbcl": {
+    "name": "Maverick",
     "coords": [
       42.369119,
       -71.03953
@@ -1075,6 +1130,7 @@ export const STATIONS = {
     ]
   },
   "place-brkhl": {
+    "name": "Brookline Hills",
     "coords": [
       42.331413,
       -71.127025
@@ -1093,6 +1149,7 @@ export const STATIONS = {
     ]
   },
   "place-balsq": {
+    "name": "Ball Square",
     "coords": [
       42.40038,
       -71.111331
@@ -1111,6 +1168,7 @@ export const STATIONS = {
     ]
   },
   "place-astao": {
+    "name": "Assembly",
     "coords": [
       42.392331,
       -71.077262
@@ -1129,6 +1187,7 @@ export const STATIONS = {
     ]
   },
   "place-sstat": {
+    "name": "South Station",
     "coords": [
       42.352271,
       -71.055242
@@ -1147,6 +1206,7 @@ export const STATIONS = {
     ]
   },
   "place-esomr": {
+    "name": "East Somerville",
     "coords": [
       42.379624,
       -71.086829
@@ -1165,6 +1225,7 @@ export const STATIONS = {
     ]
   },
   "place-knncl": {
+    "name": "Kendall/MIT",
     "coords": [
       42.362355,
       -71.085605
@@ -1183,6 +1244,7 @@ export const STATIONS = {
     ]
   },
   "place-tumnl": {
+    "name": "Tufts Medical Center",
     "coords": [
       42.349662,
       -71.063917
@@ -1201,6 +1263,7 @@ export const STATIONS = {
     ]
   },
   "place-mfa": {
+    "name": "Museum of Fine Arts",
     "coords": [
       42.338017,
       -71.094682
@@ -1219,6 +1282,7 @@ export const STATIONS = {
     ]
   },
   "place-qamnl": {
+    "name": "Quincy Adams",
     "coords": [
       42.233391,
       -71.007153
@@ -1237,6 +1301,7 @@ export const STATIONS = {
     ]
   },
   "place-portr": {
+    "name": "Porter",
     "coords": [
       42.3884,
       -71.119149
@@ -1255,6 +1320,7 @@ export const STATIONS = {
     ]
   },
   "place-eliot": {
+    "name": "Eliot",
     "coords": [
       42.319214,
       -71.216949
@@ -1273,6 +1339,7 @@ export const STATIONS = {
     ]
   },
   "place-buest": {
+    "name": "Boston University East",
     "coords": [
       42.349659,
       -71.103989
@@ -1291,6 +1358,7 @@ export const STATIONS = {
     ]
   },
   "place-orhte": {
+    "name": "Orient Heights",
     "coords": [
       42.386842,
       -71.004767
@@ -1309,6 +1377,7 @@ export const STATIONS = {
     ]
   },
   "place-hsmnl": {
+    "name": "Heath Street",
     "coords": [
       42.328316,
       -71.110252
@@ -1322,6 +1391,7 @@ export const STATIONS = {
     ]
   },
   "place-chhil": {
+    "name": "Chestnut Hill",
     "coords": [
       42.326799,
       -71.164146
@@ -1340,6 +1410,7 @@ export const STATIONS = {
     ]
   },
   "place-prmnl": {
+    "name": "Prudential",
     "coords": [
       42.34557,
       -71.081696
@@ -1358,6 +1429,7 @@ export const STATIONS = {
     ]
   },
   "place-butlr": {
+    "name": "Butler",
     "coords": [
       42.272477,
       -71.062438
@@ -1376,6 +1448,7 @@ export const STATIONS = {
     ]
   },
   "place-cool": {
+    "name": "Coolidge Corner",
     "coords": [
       42.342274,
       -71.120915
@@ -1394,6 +1467,7 @@ export const STATIONS = {
     ]
   },
   "place-hwsst": {
+    "name": "Hawes Street",
     "coords": [
       42.344758,
       -71.111761
@@ -1412,6 +1486,7 @@ export const STATIONS = {
     ]
   },
   "place-bndhl": {
+    "name": "Brandon Hall",
     "coords": [
       42.340053,
       -71.128869
@@ -1430,6 +1505,7 @@ export const STATIONS = {
     ]
   },
   "place-gilmn": {
+    "name": "Gilman Square",
     "coords": [
       42.388043,
       -71.096956
@@ -1448,6 +1524,7 @@ export const STATIONS = {
     ]
   },
   "place-state": {
+    "name": "State",
     "coords": [
       42.358978,
       -71.057598
@@ -1476,6 +1553,7 @@ export const STATIONS = {
     ]
   },
   "place-rugg": {
+    "name": "Ruggles",
     "coords": [
       42.336451,
       -71.089635
@@ -1494,6 +1572,7 @@ export const STATIONS = {
     ]
   },
   "place-cedgr": {
+    "name": "Cedar Grove",
     "coords": [
       42.279693,
       -71.060381
@@ -1512,6 +1591,7 @@ export const STATIONS = {
     ]
   },
   "place-mispk": {
+    "name": "Mission Park",
     "coords": [
       42.333092,
       -71.10968
@@ -1530,6 +1610,7 @@ export const STATIONS = {
     ]
   },
   "place-armnl": {
+    "name": "Arlington",
     "coords": [
       42.351902,
       -71.070893
@@ -1548,6 +1629,7 @@ export const STATIONS = {
     ]
   },
   "place-fenwy": {
+    "name": "Fenway",
     "coords": [
       42.345029,
       -71.104968
@@ -1566,6 +1648,7 @@ export const STATIONS = {
     ]
   },
   "place-mlmnl": {
+    "name": "Malden Center",
     "coords": [
       42.426677,
       -71.074381
@@ -1584,6 +1667,7 @@ export const STATIONS = {
     ]
   },
   "place-wrnst": {
+    "name": "Warren Street",
     "coords": [
       42.348285,
       -71.140436
@@ -1602,6 +1686,7 @@ export const STATIONS = {
     ]
   },
   "place-alsgr": {
+    "name": "Allston Street",
     "coords": [
       42.348546,
       -71.137362
@@ -1620,6 +1705,7 @@ export const STATIONS = {
     ]
   },
   "place-newtn": {
+    "name": "Newton Highlands",
     "coords": [
       42.322738,
       -71.205082
@@ -1638,6 +1724,7 @@ export const STATIONS = {
     ]
   },
   "place-brmnl": {
+    "name": "Brigham Circle",
     "coords": [
       42.334846,
       -71.103017
@@ -1656,6 +1743,7 @@ export const STATIONS = {
     ]
   },
   "place-longw": {
+    "name": "Longwood",
     "coords": [
       42.341808,
       -71.109777
@@ -1674,6 +1762,7 @@ export const STATIONS = {
     ]
   },
   "place-brdwy": {
+    "name": "Broadway",
     "coords": [
       42.342622,
       -71.056967
@@ -1692,6 +1781,7 @@ export const STATIONS = {
     ]
   },
   "place-bbsta": {
+    "name": "Back Bay",
     "coords": [
       42.34735,
       -71.075727
@@ -1710,6 +1800,7 @@ export const STATIONS = {
     ]
   },
   "place-welln": {
+    "name": "Wellington",
     "coords": [
       42.401507,
       -71.07715
@@ -1728,6 +1819,7 @@ export const STATIONS = {
     ]
   },
   "place-harvd": {
+    "name": "Harvard Avenue",
     "coords": [
       42.350263,
       -71.131298
@@ -1746,6 +1838,7 @@ export const STATIONS = {
     ]
   },
   "place-harsq": {
+    "name": "Harvard",
     "coords": [
       42.374663,
       -71.118814
@@ -1764,6 +1857,7 @@ export const STATIONS = {
     ]
   },
   "place-clmnl": {
+    "name": "Cleveland Circle",
     "coords": [
       42.336252,
       -71.148774
@@ -1782,6 +1876,7 @@ export const STATIONS = {
     ]
   },
   "place-bvmnl": {
+    "name": "Brookline Village",
     "coords": [
       42.33257,
       -71.117041
@@ -1800,6 +1895,7 @@ export const STATIONS = {
     ]
   },
   "place-kntst": {
+    "name": "Kent Street",
     "coords": [
       42.343927,
       -71.114569
@@ -1818,6 +1914,7 @@ export const STATIONS = {
     ]
   },
   "place-mgngl": {
+    "name": "Magoun Square",
     "coords": [
       42.39405,
       -71.106688
@@ -1836,6 +1933,7 @@ export const STATIONS = {
     ]
   },
   "place-masta": {
+    "name": "Massachusetts Avenue",
     "coords": [
       42.340927,
       -71.084188
@@ -1854,6 +1952,7 @@ export const STATIONS = {
     ]
   },
   "place-smary": {
+    "name": "Saint Mary's Street",
     "coords": [
       42.345884,
       -71.107697
@@ -1872,6 +1971,7 @@ export const STATIONS = {
     ]
   },
   "place-aport": {
+    "name": "Airport",
     "coords": [
       42.374262,
       -71.030395
@@ -1890,6 +1990,7 @@ export const STATIONS = {
     ]
   },
   "place-chswk": {
+    "name": "Chiswick Road",
     "coords": [
       42.340808,
       -71.150633
@@ -1908,6 +2009,7 @@ export const STATIONS = {
     ]
   },
   "place-sthld": {
+    "name": "Sutherland Road",
     "coords": [
       42.341589,
       -71.146089
@@ -1926,6 +2028,7 @@ export const STATIONS = {
     ]
   },
   "place-unsqu": {
+    "name": "Union Square",
     "coords": [
       42.377024,
       -71.093964
@@ -1944,6 +2047,7 @@ export const STATIONS = {
     ]
   },
   "place-davis": {
+    "name": "Davis",
     "coords": [
       42.39674,
       -71.121815
@@ -1962,6 +2066,7 @@ export const STATIONS = {
     ]
   },
   "place-wascm": {
+    "name": "Washington Street",
     "coords": [
       42.344329,
       -71.142385
@@ -1980,6 +2085,7 @@ export const STATIONS = {
     ]
   },
   "place-rvrwy": {
+    "name": "Riverway",
     "coords": [
       42.331871,
       -71.111961
@@ -1998,6 +2104,7 @@ export const STATIONS = {
     ]
   },
   "place-smmnl": {
+    "name": "Shawmut",
     "coords": [
       42.293126,
       -71.065738
@@ -2016,6 +2123,7 @@ export const STATIONS = {
     ]
   },
   "place-chmnl": {
+    "name": "Charles/MGH",
     "coords": [
       42.361187,
       -71.071505
@@ -2034,6 +2142,7 @@ export const STATIONS = {
     ]
   },
   "place-sumav": {
+    "name": "Summit Avenue",
     "coords": [
       42.34112,
       -71.125652
@@ -2052,6 +2161,7 @@ export const STATIONS = {
     ]
   },
   "place-fenwd": {
+    "name": "Fenwood Road",
     "coords": [
       42.33374,
       -71.105721
@@ -2070,6 +2180,7 @@ export const STATIONS = {
     ]
   },
   "place-lech": {
+    "name": "Lechmere",
     "coords": [
       42.371566,
       -71.076457
@@ -2088,6 +2199,7 @@ export const STATIONS = {
     ]
   },
   "place-wondl": {
+    "name": "Wonderland",
     "coords": [
       42.413361,
       -70.991685
@@ -2106,6 +2218,7 @@ export const STATIONS = {
     ]
   },
   "place-sbmnl": {
+    "name": "Stony Brook",
     "coords": [
       42.317062,
       -71.104248
@@ -2124,6 +2237,7 @@ export const STATIONS = {
     ]
   },
   "place-newto": {
+    "name": "Newton Centre",
     "coords": [
       42.329552,
       -71.192024
@@ -2142,6 +2256,7 @@ export const STATIONS = {
     ]
   },
   "place-spmnl": {
+    "name": "Science Park/West End",
     "coords": [
       42.366664,
       -71.067666
@@ -2160,6 +2275,7 @@ export const STATIONS = {
     ]
   },
   "place-brico": {
+    "name": "Packard's Corner",
     "coords": [
       42.351651,
       -71.12551
@@ -2178,6 +2294,7 @@ export const STATIONS = {
     ]
   },
   "place-lngmd": {
+    "name": "Longwood Medical Area",
     "coords": [
       42.336217,
       -71.099328
@@ -2196,6 +2313,7 @@ export const STATIONS = {
     ]
   },
   "place-alfcl": {
+    "name": "Alewife",
     "coords": [
       42.396148,
       -71.140698
@@ -2209,6 +2327,7 @@ export const STATIONS = {
     ]
   },
   "place-forhl": {
+    "name": "Forest Hills",
     "coords": [
       42.300926,
       -71.114129
@@ -2222,6 +2341,7 @@ export const STATIONS = {
     ]
   },
   "place-andrw": {
+    "name": "Andrew",
     "coords": [
       42.330154,
       -71.057655
@@ -2240,6 +2360,7 @@ export const STATIONS = {
     ]
   },
   "place-bcnwa": {
+    "name": "Washington Square",
     "coords": [
       42.339519,
       -71.134587
@@ -2258,6 +2379,7 @@ export const STATIONS = {
     ]
   },
   "place-tapst": {
+    "name": "Tappan Street",
     "coords": [
       42.338498,
       -71.138731
@@ -2276,6 +2398,7 @@ export const STATIONS = {
     ]
   },
   "place-ogmnl": {
+    "name": "Oak Grove",
     "coords": [
       42.437735,
       -71.070875
@@ -2289,6 +2412,7 @@ export const STATIONS = {
     ]
   },
   "place-capst": {
+    "name": "Capen Street",
     "coords": [
       42.267563,
       -71.087338
@@ -2307,6 +2431,7 @@ export const STATIONS = {
     ]
   },
   "place-fbkst": {
+    "name": "Fairbanks Street",
     "coords": [
       42.339644,
       -71.131078

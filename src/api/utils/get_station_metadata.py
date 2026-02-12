@@ -40,3 +40,6 @@ def get_station_metadata():
             station_metadata[parent_station]['stops'].append(stop_data)
 
     return station_metadata
+
+with open('output.json', 'w') as f:
+    json.dump(get_station_metadata(), f, indent=2)
