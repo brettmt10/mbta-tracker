@@ -39,8 +39,6 @@ async def get_station_times(parent_station_id: str):
     async with httpx.AsyncClient() as client:
         response = await client.get('https://api-v3.mbta.com/predictions', params=params, headers=headers)
         data = response.json()
-        print(parent_station_id, "--------------------\n------------\n--------------------\n------------\n\n----------------------\n------------", data)
-
         times = await parse_predicition_data(prediction_data=data, parent_station=parent_station_id, headers=headers)
 
     return {"res": times}
