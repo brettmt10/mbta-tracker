@@ -1,5 +1,5 @@
 import { station_nodes } from './map.js';
-import { STATIONS_RED } from './constants/stations.js';
+import { STATIONS } from './static/stcStations.js'
 
 async function getData(station_id) {
     const url =`http://localhost:8000/times/${station_id}`;
@@ -16,17 +16,4 @@ async function getData(station_id) {
         console.error(error.message);
         return null;
     }
-}
-
-export async function fetchAllStations(line) {
-    if (line == 'red') {
-        const parentStationsRed = Object.keys(STATIONS_RED);
-        for (let i = 0; i < parentStationsRed.length; i++) {
-            let station = parentStationsRed[i];
-            let data = await getData(station);
-            station_nodes[station].data = data.res;
-        }
-    }
-
-    return station_nodes;
 }
