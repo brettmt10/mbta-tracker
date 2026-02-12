@@ -1,7 +1,7 @@
 import { station_nodes } from './map.js';
 import { STATIONS } from './static/stcStations.js'
 
-async function getData(station_id) {
+async function getStationData(station_id) {
     const url =`http://localhost:8000/times/${station_id}`;
     try {
         const response = await fetch(url);
