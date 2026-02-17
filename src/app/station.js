@@ -5,8 +5,6 @@ export class StationNode {
         this.stops = station_data.stops;
         this.name = station_data.name;
         this.wait_times = null;
-        this.next_station = null;
-        this.prev_station = null;
     }
 
     async getStationTimes() {
@@ -22,5 +20,9 @@ export class StationNode {
             console.error(error.message);
             return null;
         }
+    }
+
+    async updateWaitTimes() {
+        this.wait_times = await this.getStationTimes();
     }
 }
