@@ -1,4 +1,4 @@
-import { STATIONS } from './static/stcStations.js'
+import { STATIONS_FILTERED } from './static/stcStationsSupported.js'
 import { StationNode } from './station.js'
 
 export class StationManager {
@@ -7,15 +7,27 @@ export class StationManager {
     }
 
     initalizeStations() {
-        for (const [parent_station_id, station_data] of Object.entries(STATIONS)) {
+        for (const [parent_station_id, station_data] of Object.entries(STATIONS_FILTERED)) {
             let station = new StationNode(parent_station_id, station_data);
             this.stations.push(station);
         }
     }
-    
+
     async loadStationTimes() {
         for (const station of this.stations) {
+            console.log(`UPDATING TIMES:... ${station.name}`);
             await station.updateWaitTimes();
+            console.log(`COMPLETE ITERATION:... ${station.name}`)
         }
     }
 }
+
+function printStations(stationManager) {
+    stationManager.stations.forEach(station => console.log(station));
+}
+
+const manager = new StationManager();
+manager.initalizeStations();
+manager.stations.forEach(station => console.log(station));
+await manager.loadStationTimes();
+printStations(manager);
