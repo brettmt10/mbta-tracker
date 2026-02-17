@@ -5,6 +5,7 @@ export class StationNode {
         this.stops = station_data.stops;
         this.name = station_data.name;
         this.wait_times = null;
+        this.popup = L.popup();
     }
 
     async getStationTimes() {
@@ -24,5 +25,15 @@ export class StationNode {
 
     async updateWaitTimes() {
         this.wait_times = await this.getStationTimes();
+    }
+
+    async generatePopup() {
+        const content = `
+        <div>
+            <h3>${this.name}</h3>
+        </div>`;
+
+        this.popup.setLatLng(L.latLng(this.coords[0], this.coords[1]));
+        this.popup.setContent(content);
     }
 }
