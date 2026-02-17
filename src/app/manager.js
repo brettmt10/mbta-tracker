@@ -15,7 +15,7 @@ export class StationManager {
     
     async loadStationTimes() {
         for (const station of this.stations) {
-            station.wait_times = await station.getStationTimes();
+            await station.updateWaitTimes();
         }
     }
 }
