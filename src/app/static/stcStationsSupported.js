@@ -1,15 +1,39 @@
 import { STATIONS } from './stcStations.js'
 
 const targetStations = [
-  'place-davis',
-  'place-portr',
-  'place-harsq',
-  'place-cntsq',
-  'place-knncl',
-  'place-chmnl',
-  'place-pktrm',
+  'place-sstat',
   'place-dwnxg',
-  'place-sstat'
+  'place-pktrm',
+  'place-chmnl',
+  'place-knncl',
+  'place-cntsq',
+  'place-harsq',
+  'place-portr',
+  'place-davis',
+
+  'place-bomnl',
+  'place-gover',
+  'place-state',
+  'place-aqucl',
+
+  'place-north',
+  'place-haecl',
+  'place-chncl',
+  'place-tumnl',
+  'place-bbsta',
+
+  'place-lech',
+  'place-spmnl',
+  'place-boyls',
+  'place-armnl',
+  'place-coecl',
+  'place-hymnl',
+  'place-kencl',
+  'place-bland',
+  'place-buest',
+  'place-bucen',
+  'place-smary',
+  'place-fenwy',
 ];
 
 export const STATIONS_FILTERED = Object.entries(STATIONS)
@@ -18,3 +42,5 @@ export const STATIONS_FILTERED = Object.entries(STATIONS)
     obj[id] = station;
     return obj;
   }, {});
+
+console.log(STATIONS_FILTERED);
