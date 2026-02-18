@@ -1,13 +1,16 @@
-import { STATIONS_FILTERED } from './static/stcStationsSupported.js'
 import { StationNode } from './station.js'
+import { STATIONS } from './static/stations_all.js'
+import { TARGET_STATIONS } from './static/stations_target_ids.js'
+import { extractSupportedStations } from './utils/extract_supported_stations.js'
 
 export class StationManager {
     constructor() {
         this.stations = [];
+        this.stationsFiltered = extractSupportedStations(STATIONS, TARGET_STATIONS);
     }
 
     initStations() {
-        for (const [parent_station_id, station_data] of Object.entries(STATIONS_FILTERED)) {
+        for (const [parent_station_id, station_data] of Object.entries(this.stationsFiltered)) {
             let station = new StationNode(parent_station_id, station_data);
             station.initPopup();
             station.initMarker();
@@ -23,12 +26,3 @@ export class StationManager {
         }
     }
 }
-
-// function printStations(stationManager) {
-//     stationManager.stations.forEach(station => console.log(station));
-// }
-// const manager = new StationManager();
-// manager.initalizeStations();
-// manager.stations.forEach(station => console.log(station));
-// await manager.loadStationTimes();
-// printStations(manager);

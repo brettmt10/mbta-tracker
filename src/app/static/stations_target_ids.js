@@ -1,6 +1,4 @@
-import { STATIONS } from './stcStations.js'
-
-const targetStations = [
+export const TARGET_STATIONS = [
   'place-sstat',
   'place-dwnxg',
   'place-pktrm',
@@ -36,12 +34,3 @@ const targetStations = [
   'place-fenwy',
   'place-prmnl'
 ];
-
-export const STATIONS_FILTERED = Object.entries(STATIONS)
-  .filter(([id]) => targetStations.includes(id))
-  .reduce((obj, [id, station]) => {
-    obj[id] = station;
-    return obj;
-  }, {});
-
-console.log(STATIONS_FILTERED);
