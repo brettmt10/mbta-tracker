@@ -5,6 +5,7 @@ export class StationNode {
         this.stops = station_data.stops;
         this.name = station_data.name;
         this.wait_times = null;
+        this.marker = L.marker();
         this.popup = L.popup();
     }
 
@@ -27,7 +28,7 @@ export class StationNode {
         this.wait_times = await this.getStationTimes();
     }
 
-    async generatePopup() {
+    initPopup() {
         const content = `
         <div>
             <h3>${this.name}</h3>
@@ -35,5 +36,10 @@ export class StationNode {
 
         this.popup.setLatLng(L.latLng(this.coords[0], this.coords[1]));
         this.popup.setContent(content);
+    }
+
+    initMarker() {
+        this.marker.setLatLng(this.coords);
+        this.marker.bindPopup(this.popup);
     }
 }

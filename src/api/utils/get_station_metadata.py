@@ -41,5 +41,5 @@ def get_station_metadata():
 
     return station_metadata
 
-with open('output.json', 'w') as f:
-    json.dump(get_station_metadata(), f, indent=2)
+# with open('output.json', 'w') as f:
+#     json.dump(get_station_metadata(), f, indent=2)
