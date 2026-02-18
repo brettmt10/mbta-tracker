@@ -6,9 +6,10 @@ export class MapInstance {
         this.map = L.map('map').setView([42.356428, -71.078908], 14.5);
     }
 
-    async init() {
+    init() {
         this.initMap();
-        this.initStations();
+        this.manager.initStations();
+        this.placeMarkers();
     }
 
     initMap() {
@@ -26,9 +27,12 @@ export class MapInstance {
         }).addTo(this.map);
     }
 
-    initStations() {
-        this.manager.initalizeStations();
+    placeMarkers() {
+        for (const station of this.manager.stations) {
+            station.marker.addTo(this.map);
+        }
     }
+
 }
 
 const map = new MapInstance();

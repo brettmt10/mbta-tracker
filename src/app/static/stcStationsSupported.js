@@ -3,7 +3,7 @@ import { STATIONS } from './stcStations.js'
 const targetStations = [
   'place-davis',
   'place-portr',
-  'place-harvd',
+  'place-harsq',
   'place-cntsq',
   'place-knncl',
   'place-chmnl',
