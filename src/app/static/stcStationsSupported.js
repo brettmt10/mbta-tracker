@@ -34,6 +34,7 @@ const targetStations = [
   'place-bucen',
   'place-smary',
   'place-fenwy',
+  'place-prmnl'
 ];
 
 export const STATIONS_FILTERED = Object.entries(STATIONS)
