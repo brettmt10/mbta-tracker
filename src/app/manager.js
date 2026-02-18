@@ -6,9 +6,11 @@ export class StationManager {
         this.stations = [];
     }
 
-    initalizeStations() {
+    initStations() {
         for (const [parent_station_id, station_data] of Object.entries(STATIONS_FILTERED)) {
             let station = new StationNode(parent_station_id, station_data);
+            station.initPopup();
+            station.initMarker();
             this.stations.push(station);
         }
     }
@@ -17,17 +19,16 @@ export class StationManager {
         for (const station of this.stations) {
             console.log(`UPDATING TIMES:... ${station.name}`);
             await station.updateWaitTimes();
-            console.log(`COMPLETE ITERATION:... ${station.name}`)
+            console.log(`COMPLETED ITERATION:... ${station.name}`)
         }
     }
 }
 
-function printStations(stationManager) {
-    stationManager.stations.forEach(station => console.log(station));
-}
-
-const manager = new StationManager();
-manager.initalizeStations();
-manager.stations.forEach(station => console.log(station));
-await manager.loadStationTimes();
-printStations(manager);
+// function printStations(stationManager) {
+//     stationManager.stations.forEach(station => console.log(station));
+// }
+// const manager = new StationManager();
+// manager.initalizeStations();
+// manager.stations.forEach(station => console.log(station));
+// await manager.loadStationTimes();
+// printStations(manager);
