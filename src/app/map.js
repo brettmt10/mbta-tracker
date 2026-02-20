@@ -1,4 +1,5 @@
 import { StationManager } from './manager.js';
+import { redCoords, orangeCoords, blueCoords, greenTrunkCoords, greenBCoords, greenCCoords, greenDCoords, greenECoords } from './static/polylines.js';
 
 export class MapInstance {
     constructor() {
@@ -10,6 +11,7 @@ export class MapInstance {
         this.initMap();
         this.manager.initStations();
         this.placeMarkers();
+        this.placePolyLines();
     }
 
     initMap() {
@@ -33,8 +35,18 @@ export class MapInstance {
         }
     }
 
+    placePolyLines() {
+        L.polyline(redCoords,        { color: '#CC0000' }).addTo(this.map);
+        L.polyline(orangeCoords,     { color: '#ed8b00' }).addTo(this.map);
+        L.polyline(blueCoords,       { color: '#003da5' }).addTo(this.map);
+        L.polyline(greenTrunkCoords, { color: '#00843d' }).addTo(this.map);
+        L.polyline(greenBCoords,     { color: '#00843d' }).addTo(this.map);
+        L.polyline(greenCCoords,     { color: '#00843d' }).addTo(this.map);
+        L.polyline(greenDCoords,     { color: '#00843d' }).addTo(this.map);
+        L.polyline(greenECoords,     { color: '#00843d' }).addTo(this.map);
+    }
+    
 }
 
 const map = new MapInstance();
-await map.init();
-console.log(map.manager.stations);
+map.init();
