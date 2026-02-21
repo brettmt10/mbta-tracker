@@ -42,4 +42,9 @@ export class StationNode {
         this.marker.setLatLng(this.coords);
         this.marker.bindPopup(this.popup);
     }
+
+    setWaitTimes() {
+        // sets the wait times by getting top 3 times per direction in station
+        const directions = [...new Set(this.stops.map(stop => stop.direction))];
+    }
 }
