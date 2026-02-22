@@ -21,6 +21,7 @@ async def parse_predicition_data(prediction_data, parent_station, headers):
             for stop in station_metadata[parent_station]['stops']:
                 if stop['id'] == stop_id:
                     direction = stop['direction']
+                    line = stop['line']
 
             async with httpx.AsyncClient() as client:
                 try:
@@ -43,7 +44,8 @@ async def parse_predicition_data(prediction_data, parent_station, headers):
             if countdown:
                 time_info = {
                     "countdown": countdown,
-                    "direction": direction
+                    "direction": direction,
+                    "line": line
                 }
                 times.append(time_info)
     return times
