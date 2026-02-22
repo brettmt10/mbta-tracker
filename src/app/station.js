@@ -25,7 +25,8 @@ export class StationNode {
     }
 
     async updateWaitTimes() {
-        this.wait_times = await this.getStationTimes();
+        const data = await this.getStationTimes();
+        this.wait_times = data.res;
     }
 
     initPopup() {
@@ -43,8 +44,18 @@ export class StationNode {
         this.marker.bindPopup(this.popup);
     }
 
-    setWaitTimes() {
-        // sets the wait times by getting top 3 times per direction in station
+    updatePopup() {
+        // sets the wait times in the popup by getting top 3 times per direction in station
         const directions = [...new Set(this.stops.map(stop => stop.direction))];
+        console.log(directions);
+
+    
+        const grouped = {};
+        for (const direction of directions) {
+            grouped[direction] = this.wait_times.filter(time => time.direction === direction);
+        }
+
+        console.log(grouped);
+    
     }
 }
