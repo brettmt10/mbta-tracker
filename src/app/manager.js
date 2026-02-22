@@ -19,10 +19,16 @@ export class StationManager {
     }
 
     async loadStationTimes() {
+
+        let i = 0;
         for (const station of this.stations) {
-            console.log(`UPDATING TIMES:... ${station.name}`);
-            await station.updateWaitTimes();
-            console.log(`COMPLETED ITERATION:... ${station.name}`)
+            if (i < 1) {
+                console.log(`UPDATING TIMES:... ${station.name}`);
+                await station.updateWaitTimes();
+                console.log(`COMPLETED ITERATION:... ${station.name}`)
+                i = i + 1;
+            }
+
         }
     }
 }
