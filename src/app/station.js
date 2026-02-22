@@ -30,12 +30,29 @@ export class StationNode {
     }
 
     initPopup() {
-        const content = `
-        <div>
-            <h3>${this.name}</h3>
-        </div>`;
-
         this.popup.setLatLng(L.latLng(this.coords[0], this.coords[1]));
+
+        const lines = [...new Set(this.stops.map(stop => stop.line))];
+
+        const line_colors = {
+            "Red Line": "#CC0000",
+            "Orange Line": "#ed8b00",
+            "Blue Line": "#003da5",
+            "Green Line": "#00843d"
+        };
+
+        const buttons = lines.map(line => `
+            <button style="background-color: ${line_colors[line]}; width: 20px; height: 20px; border-radius: 50%; border: none;"></button>
+        `).join('');
+
+        const content = `
+            <div>
+                <h3>${this.name}</h3>
+                <div>
+                    ${buttons}
+                </div>
+            </div>`;
+
         this.popup.setContent(content);
     }
 
@@ -53,9 +70,6 @@ export class StationNode {
         const grouped = {};
         for (const direction of directions) {
             grouped[direction] = this.wait_times.filter(time => time.direction === direction).slice(0, 3);
-        }
-
-        console.log(grouped);
-    
+        }    
     }
 }
