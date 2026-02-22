@@ -52,7 +52,7 @@ export class StationNode {
     
         const grouped = {};
         for (const direction of directions) {
-            grouped[direction] = this.wait_times.filter(time => time.direction === direction);
+            grouped[direction] = this.wait_times.filter(time => time.direction === direction).slice(0, 3);
         }
 
         console.log(grouped);
