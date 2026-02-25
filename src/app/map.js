@@ -45,8 +45,13 @@ export class MapInstance {
         L.polyline(greenDCoords,     { color: '#00843d' }).addTo(this.map);
         L.polyline(greenECoords,     { color: '#00843d' }).addTo(this.map);
     }
+
+    async test() {
+        this.manager.loadStationTimes();
+    }
     
 }
 
 const map = new MapInstance();
 map.init();
+map.test();
