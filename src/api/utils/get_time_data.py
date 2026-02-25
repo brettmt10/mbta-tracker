@@ -11,6 +11,8 @@ async def parse_predicition_data(prediction_data, parent_station, headers):
         attrs = t['attributes']
         if attrs['departure_time']:
             stop_id = t['relationships']['stop']['data']['id']
+            if not attrs['arrival_time']:
+                break
             arrival_time = datetime.fromisoformat(attrs['arrival_time'])
             departure_time = datetime.fromisoformat(attrs['departure_time'])
             status = attrs['status']
