@@ -24,7 +24,6 @@ def get_stations():
 
 @app.get("/times/{parent_station_id}")
 async def get_station_times(parent_station_id: str):
-    times = []
     params = {
         'filter[stop]': parent_station_id,
         'sort': 'time',
@@ -39,7 +38,7 @@ async def get_station_times(parent_station_id: str):
     async with httpx.AsyncClient() as client:
         print(f"getting times for {parent_station_id}")
         response = await client.get('https://api-v3.mbta.com/predictions', params=params, headers=headers)
-        data = response.json()  
-        times = await parse_predicition_data(prediction_data=data, parent_station=parent_station_id, headers=headers)
+        data = response.json()
+        times = await parse_predicition_data(prediction_data=data, parent_station=parent_station_id, headers=headers, client=client)
 
     return {"res": times}
