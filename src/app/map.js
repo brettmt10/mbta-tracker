@@ -46,7 +46,7 @@ export class MapInstance {
         L.polyline(greenECoords,     { color: '#00843d' }).addTo(this.map);
     }
 
-    async test() {
+    async main() {
         this.manager.loadStationTimes();
     }
     
@@ -54,4 +54,7 @@ export class MapInstance {
 
 const map = new MapInstance();
 map.init();
-map.test();
+
+setInterval(() => {
+    map.main();
+}, 60000);
