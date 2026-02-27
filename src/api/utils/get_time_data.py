@@ -1,56 +1,52 @@
+import asyncio
 from datetime import datetime
 import pytz
 import httpx
 from rich import print as rprint
 from static import station_metadata
 
-async def parse_predicition_data(prediction_data, parent_station, headers):
-    times = []
+async def parse_predicition_data(prediction_data, parent_station, headers, client):
 
-    for t in prediction_data['data']:
+    async def process_prediction(t):
         attrs = t['attributes']
-        if attrs['departure_time']:
-            stop_id = t['relationships']['stop']['data']['id']
-            if not attrs['arrival_time']:
-                break
-            arrival_time = datetime.fromisoformat(attrs['arrival_time'])
-            departure_time = datetime.fromisoformat(attrs['departure_time'])
-            status = attrs['status']
-            vehicle_id = t['relationships']['vehicle']['data']['id']
-            direction = ''
+        if not attrs['departure_time']:
+            return None
+        if not attrs['arrival_time']:
+            return None
 
-            # get correct direction placement
-            for stop in station_metadata[parent_station]['stops']:
-                if stop['id'] == stop_id:
-                    direction = stop['direction']
-                    line = stop['line']
+        stop_id = t['relationships']['stop']['data']['id']
+        arrival_time = datetime.fromisoformat(attrs['arrival_time'])
+        departure_time = datetime.fromisoformat(attrs['departure_time'])
+        status = attrs['status']
+        vehicle_id = t['relationships']['vehicle']['data']['id']
+        direction, line = '', ''
 
-            async with httpx.AsyncClient() as client:
-                try:
-                    vehicles_res = await client.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}', headers=headers)
+        for stop in station_metadata[parent_station]['stops']:
+            if stop['id'] == stop_id:
+                direction = stop['direction']
+                line = stop['line']
 
-                    train_data = vehicles_res.json()
-                    train_current_stop_id = train_data['data']['relationships']['stop']['data']['id']
-                except:
-                    train_current_stop_id = -1
+        try:
+            vehicles_res = await client.get(f'https://api-v3.mbta.com/vehicles/{vehicle_id}', headers=headers)
+            train_current_stop_id = vehicles_res.json()['data']['relationships']['stop']['data']['id']
+        except:
+            train_current_stop_id = -1
 
-            prediction_data_f = {
-                "arrival_time": arrival_time,
-                "departure_time": departure_time,
-                "status": status,
-                "train_current_stop_id": train_current_stop_id
-            }
-            
-            countdown = countdown_logic(station_id=stop_id, prediction_data=prediction_data_f)
+        prediction_data_f = {
+            "arrival_time": arrival_time,
+            "departure_time": departure_time,
+            "status": status,
+            "train_current_stop_id": train_current_stop_id
+        }
 
-            if countdown:
-                time_info = {
-                    "countdown": countdown,
-                    "direction": direction,
-                    "line": line
-                }
-                times.append(time_info)
-    return times
+        countdown = countdown_logic(station_id=stop_id, prediction_data=prediction_data_f)
+        if countdown:
+            return {"countdown": countdown, "direction": direction, "line": line}
+        return None
+
+    results = await asyncio.gather(*[process_prediction(t) for t in prediction_data['data']])
+    return [r for r in results if r is not None]
+
 
 def get_time_info(arrival_time):
     now = datetime.now(pytz.timezone('US/Eastern'))
@@ -59,6 +55,7 @@ def get_time_info(arrival_time):
     mins = round(seconds / 60)
 
     return seconds, mins
+
 
 def countdown_logic(station_id, prediction_data: dict):
     # return the countdown message based on MTBA best practices: https://www.mbta.com/developers/real-time-display-guidelines
@@ -71,7 +68,7 @@ def countdown_logic(station_id, prediction_data: dict):
     seconds, mins = get_time_info(arrival_time)
 
     at_station = (
-        status == 'Stopped at station' 
+        status == 'Stopped at station'
         and train_current_stop_id == station_id
     )
 
@@ -92,4 +89,4 @@ def countdown_logic(station_id, prediction_data: dict):
     else:
         countdown_message = f'{mins} min'
 
-    return countdown_message if countdown_message else None # other cases are an error server side
+    return countdown_message if countdown_message else None
