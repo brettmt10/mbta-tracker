@@ -91,6 +91,8 @@ export class StationNode {
         }
 
         this.wait_times = grouped;
+
+        console.log(this.wait_times);
         
         let directionsHTML = '';
         for (const [direction, times] of Object.entries(grouped)) {

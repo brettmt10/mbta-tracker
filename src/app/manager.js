@@ -18,13 +18,15 @@ export class StationManager {
         }
     }
 
-    async loadStationTimes() {
-        for (const station of this.stations) {
-            console.log(`UPDATING TIMES:... ${station.name}`);
-            await station.updateWaitTimes();
-            console.log(`COMPLETED ITERATION:... ${station.name}`);
-            console.log('UPDATING POPUP...');
-            station.updatePopup();
+    async loadStationTimes(batchSize = 6) {
+        for (let i = 0; i < this.stations.length; i += batchSize) {
+            const batch = this.stations.slice(i, i + batchSize);
+            await Promise.all(
+                batch.map(async (station) => {
+                    await station.updateWaitTimes();
+                    station.updatePopup();
+                })
+            );
         }
     }
 }
