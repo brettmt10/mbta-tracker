@@ -9,6 +9,9 @@ app = "src.api.main:app"
 [tool.uv]
 package = true
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/api/main"]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
