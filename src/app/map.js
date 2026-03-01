@@ -54,6 +54,7 @@ export class MapInstance {
 
 const map = new MapInstance();
 map.init();
+map.main();
 
 setInterval(() => {
     map.main();
