@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 import httpx
 from rich import print as rprint
-from static import station_metadata
+from src.api.static import station_metadata
 
 async def parse_predicition_data(prediction_data, parent_station, headers, client):
 
