@@ -1,2 +1,2 @@
 [project.scripts]
-app = "src.api.mbta-api:app"
+app = "src.api.main:app"
