@@ -1,6 +1,14 @@
 [project]
 name = "mbta-api"
 version = "0.0.1"
+requires-python = ">=3.12"
 
 [project.scripts]
 app = "src.api.main:app"
+
+[tool.uv]
+package = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
