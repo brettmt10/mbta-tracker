@@ -10,7 +10,8 @@ export class StationNode {
     }
 
     async getStationTimes() {
-        const url = `http://localhost:8000/times/${this.parent_station_id}`;
+        const url = `/times/${this.parent_station_id}`;
+        // const url = `http://localhost:8000/times/${this.parent_station_id}`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
