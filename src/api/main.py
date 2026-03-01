@@ -2,8 +2,8 @@ import httpx
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-from utils.get_time_data import parse_predicition_data
-from utils.get_station_metadata import get_station_metadata
+from src.utils.get_time_data import parse_predicition_data
+from src.utils.get_station_metadata import get_station_metadata
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 

@@ -17,7 +17,7 @@ app = "src.api.main:app"
 package = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/api/main"]
+packages = ["src"]
 
 [build-system]
 requires = ["hatchling"]
