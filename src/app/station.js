@@ -71,46 +71,49 @@ export class StationNode {
     }
 
     updatePopup() {
-        // sets the wait times in the popup by getting top 3 times per direction in station
-        const directions = [...new Set(this.stops.map(stop => stop.direction))];
-        console.log(directions);
+        if (this.wait_times) {
+            // sets the wait times in the popup by getting top 3 times per direction in station
+            const directions = [...new Set(this.stops.map(stop => stop.direction))];
+            console.log(directions);
 
-        const lines = [...new Set(this.stops.map(stop => stop.line))];
-        console.log(lines);
+            const lines = [...new Set(this.stops.map(stop => stop.line))];
+            console.log(lines);
 
-        const line_colors = {
-            "Red Line": "#CC0000",
-            "Orange Line": "#ed8b00",
-            "Blue Line": "#003da5",
-            "Green Line": "#00843d"
-        };
-    
-        const grouped = {};
-        for (const direction of directions) {
-            grouped[direction] = this.wait_times.filter(time => time.direction === direction).slice(0, 3);
-        }
-
-        this.wait_times = grouped;
-
-        console.log(this.wait_times);
+            const line_colors = {
+                "Red Line": "#CC0000",
+                "Orange Line": "#ed8b00",
+                "Blue Line": "#003da5",
+                "Green Line": "#00843d"
+            };
         
-        let directionsHTML = '';
-        for (const [direction, times] of Object.entries(grouped)) {
-            const color = line_colors[times[0]?.line] || "#333";
-            const timesHTML = times.map(t => `<div style="font-size:12px; color:#555;">${t.countdown}</div>`).join('');
-            directionsHTML += `
-                <div style="border-left: 4px solid ${color}; margin-bottom: 10px; padding-left: 8px;">
-                    <div style="font-weight: bold; font-size: 13px; margin-bottom: 4px;">${direction}</div>
-                    ${timesHTML}
+            const grouped = {};
+            for (const direction of directions) {
+                grouped[direction] = this.wait_times.filter(time => time.direction === direction).slice(0, 3);
+            }
+
+            this.wait_times = grouped;
+
+            console.log(this.wait_times);
+            
+            let directionsHTML = '';
+            for (const [direction, times] of Object.entries(grouped)) {
+                const color = line_colors[times[0]?.line] || "#333";
+                const timesHTML = times.map(t => `<div style="font-size:12px; color:#555;">${t.countdown}</div>`).join('');
+                directionsHTML += `
+                    <div style="border-left: 4px solid ${color}; margin-bottom: 10px; padding-left: 8px;">
+                        <div style="font-weight: bold; font-size: 13px; margin-bottom: 4px;">${direction}</div>
+                        ${timesHTML}
+                    </div>`;
+            }
+
+            const content = `
+                <div>
+                    <h3>${this.name}</h3>
+                    ${directionsHTML}
                 </div>`;
+
+            this.popup.setContent(content);
         }
-
-        const content = `
-            <div>
-                <h3>${this.name}</h3>
-                ${directionsHTML}
-            </div>`;
-
-        this.popup.setContent(content);
+  
     }
 }
